@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { BsFillImageFill } from "react-icons/bs";
 import axios from "axios";
 
 const ImageUploader = () => {
@@ -30,6 +29,7 @@ const ImageUploader = () => {
       setLoading(false);
     }
   };
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -77,21 +77,71 @@ const ImageUploader = () => {
           ) : (
             <>
               {image ? (
-                <div className="w-[100%] h-[218.90px]  bg-slate-50 rounded-xl border-2 border-blue-300 border-dashed mt-7 flex flex-col items-center">
-                  <img src={URL.createObjectURL(image)} alt="Uploaded" />
-                  <button onClick={handleCopyToClipboard}>
-                    Copy to Clipboard
-                  </button>
-                </div>
-              ) : (
-                <div className="w-[100%] h-[218.90px]  bg-slate-50 rounded-xl border-2 border-blue-300 border-dashed mt-7 flex flex-col items-center">
-                  <div
-                    className=" w-[114.13px] h-[88.24px]  border my-8"
-                    onDrop={handleImageDrop}
-                    onDragOver={(e) => e.preventDefault()}
-                  >
-                    <BsFillImageFill className="w-full h-full" />
+                <>
+                  <div className="w-[100%] h-[218.90px]  bg-slate-50 rounded-xl border-2 border-blue-300 border-dashed mt-7 flex flex-col items-center">
+                    <img
+                      src={URL.createObjectURL(image)}
+                      alt="Uploaded"
+                      className="w-full h-full"
+                    />
                   </div>
+                  <div className="w-[338px] h-[34px] bg-slate-50 rounded-lg border border-neutral-200 mt-5">
+                    <div className="text-center text-neutral-600 text-[8px] font-medium">
+                      {URL.createObjectURL(image)}
+                    </div>
+                    <button
+                      onClick={handleCopyToClipboard}
+                      className="w-[74px] h-8  bg-blue-500 rounded-lg text-center text-white text-xs font-medium "
+                    >
+                      Copy Link
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="w-[100%] h-[218.90px]  bg-slate-50 rounded-xl border-2 border-blue-300 border-dashed mt-7 flex flex-col items-center">
+                    <div
+                      className=" w-[114.13px] h-[88.24px]  border my-8"
+                      onDrop={handleImageDrop}
+                      onDragOver={(e) => e.preventDefault()}
+                    >
+                      <label htmlFor="fileInput" className=" ">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="114.13"
+                          height="88.24"
+                          fill="currentColor"
+                          className="bi bi-image"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                          <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
+                        </svg>
+                      </label>
+                      <input
+                        id="fileInput"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        style={{ display: "none" }}
+                      />
+                    </div>
+
+                    <div className="w-[166.01px] h-[17.99px]  text-stone-300 text-xs font-medium">
+                      Drag & Drop your image here
+                    </div>
+                  </div>
+                  <div
+                    className="w-3.5 h-[17.99px] 
+           text-center text-stone-300 text-xs font-medium mt-4"
+                  >
+                    Or
+                  </div>
+                  <label htmlFor="fileInput" className=" ">
+                    <div className="w-[101px] h-8  bg-blue-500 rounded-lg text-center text-white text-xs font-medium mt-5">
+                      Choose a file
+                    </div>
+                  </label>
                   <input
                     id="fileInput"
                     type="file"
@@ -99,24 +149,10 @@ const ImageUploader = () => {
                     onChange={handleImageChange}
                     style={{ display: "none" }}
                   />
-                  <div className="w-[166.01px] h-[17.99px]  text-stone-300 text-xs font-medium">
-                    Drag & Drop your image here
-                  </div>
-                </div>
+                </>
               )}
             </>
           )}
-
-          <div
-            className="w-3.5 h-[17.99px] 
-           text-center text-stone-300 text-xs font-medium mt-4"
-          >
-            Or
-          </div>
-
-          <div className="w-[101px] h-8  bg-blue-500 rounded-lg text-center text-white text-xs font-medium mt-5">
-            Choose a file
-          </div>
         </div>
       </div>{" "}
     </div>
