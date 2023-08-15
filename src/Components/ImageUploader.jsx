@@ -1,10 +1,17 @@
 import { useState } from "react";
 import axios from "axios";
+import Spinner from "./Spinner";
 
 const ImageUploader = () => {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
+  //  useEffect(() => {
+  //    // Simulating a loading delay
+  //    setTimeout(() => {
+  //      setLoading(false);
+  //    }, 2000);
+  //  }, []);
   const handleImageUpload = async (file) => {
     setLoading(true);
 
@@ -64,15 +71,36 @@ const ImageUploader = () => {
     <div className="flex items-center justify-center bg-slate-500 h-screen w-screen">
       <div className="w-[402px] h-[469px] bg-white rounded-xl shadow flex flex-col items-center">
         <div className="w-[80%] h-[397px] flex flex-col items-center  mt-9">
-          <div className=" h-[26.99px]  text-neutral-600 text-lg font-medium text-center ">
-            Upload your image
-          </div>
-          <div className=" h-[14.99px] mt-4 text-center text-zinc-500 text-[10px] font-medium">
-            File should be Jpeg, Png,...
-          </div>
+          {image && !loading ? (
+            <>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="#219653"
+                className="bi bi-check-circle-fill"
+                viewBox="0 0 16 16"
+              >
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+              </svg>
+              <div className=" h-[26.99px]  text-neutral-600 text-lg font-medium text-center ">
+                Upload Succesfully
+              </div>
+            </>
+          ) : (
+            <>
+              <div className=" h-[26.99px]  text-neutral-600 text-lg font-medium text-center ">
+                Upload your image
+              </div>
+              <div className=" h-[14.99px] mt-4 text-center text-zinc-500 text-[10px] font-medium">
+                File should be Jpeg, Png,...
+              </div>
+            </>
+          )}
+
           {loading ? (
             <div className="w-[100%] h-[218.90px]  bg-slate-50 rounded-xl border-2 border-blue-300 border-dashed mt-7 flex flex-col items-center">
-              Loading...
+              <Spinner />
             </div>
           ) : (
             <>
@@ -85,8 +113,8 @@ const ImageUploader = () => {
                       className="w-full h-full"
                     />
                   </div>
-                  <div className="w-[338px] h-[34px] bg-slate-50 rounded-lg border border-neutral-200 mt-5">
-                    <div className="text-center text-neutral-600 text-[8px] font-medium">
+                  <div className=" flex flex-row justify-around w-[338px] h-[34px] bg-slate-50 rounded-lg border border-neutral-200 mt-5">
+                    <div className="text-center text-neutral-600 text-[8px] font-medium mt-3">
                       {URL.createObjectURL(image)}
                     </div>
                     <button
