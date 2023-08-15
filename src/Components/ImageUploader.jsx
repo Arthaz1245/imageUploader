@@ -20,7 +20,7 @@ const ImageUploader = () => {
       formData.append("image", file);
 
       const response = await axios.post(
-        "http://localhost:5000/ImageUploader",
+        "https://imageuploaderback.onrender.com/ImageUploader",
         formData,
         {
           headers: {
